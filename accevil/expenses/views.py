@@ -1,22 +1,23 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from .services import generator
 
-# Create your views here.
-from rest_framework.viewsets import ModelViewSet
-# class ExpenseView(ModelViewSet):
-#     queryset = {"test": 1}
-#     return queryset
 
-# def ExpenseView():
-#     queryset = {"test": 1}
-#     result = {}
-#     response = Response(result, status=status.HTTP_200_OK)
-#     return response
+class ExpensesView(viewsets.GenericViewSet):
 
-class ExpenseView(APIView):
+    @action(detail=True, methods=['post'])
+    def generator(self, request):
+        print(request.data)
+        total = request.data.get("total")
+        distributed_count = request.data.get("distributed_count")
+        variance = request.data.get("variance")
+        result = {"generator": 1}
+        return Response(result)
 
-    def get(self, request):
-        result = {"test": 1}
+    @action(detail=True, methods=['get'])
+    def generator2(self, request):
+        result = {"generator2": 2}
         return Response(result)

@@ -15,9 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .expenses.views import ExpenseView
+from .expenses.views import ExpensesView
+from rest_framework import routers
+
+# router = routers.SimpleRouter()
+# router.register(r'admin', admin.site.urls)
+# router.register(r'expenses', ExpensesView)
+
+# urlpatterns = [
+#     url(r'^forgot-password/$', ForgotPasswordFormView.as_view()),
+# ]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('expenses/', ExpenseView.as_view()),
+    path(r'admin', admin.site.urls),
+    path(r'expenses/generator', ExpensesView.as_view({'post': 'generator'})),
+    path(r'expenses/generator2', ExpensesView.as_view({'get': 'generator2'})),
 ]
